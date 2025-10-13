@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
     $password = mysqli_real_escape_string($koneksi, $_POST['password']);
 
-    $query = "SELECT * FROM users WHERE username='$username' AND password=MD5('$password')";
+    $query = "SELECT * FROM user WHERE username='$username' AND password=MD5('$password')";
     $result = mysqli_query($koneksi, $query);
 
     if (mysqli_num_rows($result) > 0) {
