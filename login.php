@@ -36,7 +36,7 @@ if (isset($_POST['login'])) {
     <form method="POST" action="">
         <h2>Login</h2>
         <?php if (isset($error)) echo "<pclass='error'>$error</p>"; ?>
-        <input type="text" name="user" placeholder="Username" required autofocus>
+        <input type="text" name="usernamegit" placeholder="Username" required autofocus>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit" name="login">Masuk</button>
     </form>
