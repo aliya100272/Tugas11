@@ -6,38 +6,65 @@ include 'koneksi.php';
 
 if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-    $password = mysqli_real_escape_string($koneksi, $_POST['password']);
+    $password = md5($_POST['password']);  // md5, sesuaikan dengan yang ada di DB
 
-    $query = "SELECT * FROM user WHERE username='$username' AND password=MD5('$password')";
+    $query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
     $result = mysqli_query($koneksi, $query);
 
     if (mysqli_num_rows($result) > 0) {
         $_SESSION['username'] = $username;
         header("Location: index.php");
-        exit();
+        exit;
     } else {
-        $error = "<script>window.alert('Password salah pokoknya salah!');</script>";
-    }}
+        $error = "Username atau password salah!";
+    }
+}
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
     <style>
-        body {font-family: Arial; background: #f2f2f2; display:flex; justify-content:center; align-items:center; height:100vh;}
-        form {background:#fff; padding:30px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
-        input {display:block; width:100%; margin-bottom:10px; padding:10px;}
-        button {padding:10px; width:100%; background:#007bff; color:white; border:none; border-radius:5px;}
-        .error {color:red; text-align:center;}
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <form method="POST" action="">
+    <form method="POST" action="" autocomplete="off">
         <h2>Login</h2>
-        <?php if (isset($error)) echo "<pclass='error'>$error</p>"; ?>
-        <input type="text" name="usernamegit" placeholder="Username" required autofocus>
-        <input type="password" name="password" placeholder="Password" required>
+        <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
+        <input type="text" name="username" placeholder="Username" autocomplete="off" required>
+        <input type="password" name="password" placeholder="Password" autocomplete="new-password" required>
         <button type="submit" name="login">Masuk</button>
     </form>
 </body>
