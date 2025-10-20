@@ -7,7 +7,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
-include 'koneksi.php'; ?>
+include 'koneksi.php'; 
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -16,8 +17,17 @@ include 'koneksi.php'; ?>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body class="container py-4">
-  <h2 class="mb-4">Daftar Ekskul</h2>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Daftar Ekskul</h2>
+    <div>
+      <span class="me-3">Halo, <strong><?= htmlspecialchars($_SESSION['username']); ?></strong></span>
+      <a href="logout.php" class="btn btn-outline-danger btn-sm">Logout</a>
+    </div>
+  </div>
+
   <a href="tambah.php" class="btn btn-primary mb-3">+ Tambah Data</a>
+
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -50,5 +60,6 @@ include 'koneksi.php'; ?>
       ?>
     </tbody>
   </table>
+
 </body>
 </html>
